@@ -167,3 +167,17 @@ textarea {
   position: relative;
   bottom: 10px;
 }
+.popupNote{
+  display: none;
+  background-color: rgba(0,0,0,0.6);
+  height: 500px;
+  position: absolute;
+  z-index: 9999999;
+  width: 100%;
+}
+.popupNote h3, .articleId{
+  color: white;
+}
+.margin-auto-custome{
+  margin: 0 auto;
+}

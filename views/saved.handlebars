@@ -8,6 +8,17 @@
     <p>New York Times Edition</p>
   </div>
 </div>
+<div class="row popupNote">
+    <div class="col-md-4 text-center margin-auto-custome">
+      <form>
+      <h3>Article Id: <span name="articleId" class="articleId"></span></h3>
+      <textarea name="noteText" class="noteText"></textarea>
+      <button type="button" class="btn btn-primary saveNote">Save Note</button>
+      <button type="button" class="btn btn-danger closeNote">Close</button>
+
+    </form>
+    </div>
+  </div>
 <div class="container-fluid article-container">
 {{#each articles}}
   {{#if saved}}
@@ -15,7 +26,8 @@
     <div class="card-header">
       <h3>
         <a class="article-link" target="_blank" rel="noopener noreferrer" href="{{link}}" >{{title}}</a>
-        <a class="btn btn-success save">Save Article</a>
+        <a class="btn btn-danger delete">Delete From Saved</a>
+        <a class="btn btn-info notes">Article Notes</a>
       </h3>
     </div>
     <div class="card-body">
