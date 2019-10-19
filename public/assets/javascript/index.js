@@ -61,7 +61,7 @@ $(document).ready(function () {
   $(".notes").on("click", function () {
     $(".articleId").text("")
     $(".preNotes").empty()
-    $(".noteText").text("")
+    $(".noteText").val("")
     var getArticleid = $(this)
       .parents(".card")
       .data();
@@ -71,7 +71,7 @@ $(document).ready(function () {
     }).then((noteResponse) => {
       console.log(noteResponse)
       $(".popupNote").show()
-      $(".articleId").text(noteResponse._id)
+      $(".articleId").text(noteResponse[0]._id)
 
       $(".preNotes").append("<p class='oldNotes'>" + noteResponse[0].note.body + "<span data-id='" + noteResponse[0].note._id + "' class='removeChildNotes'>X</span>")
     })
