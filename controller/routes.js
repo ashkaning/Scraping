@@ -119,10 +119,10 @@ module.exports = (app) => {
 
 
     app.get("/articleNotes/:id", (req, res) => {
-        db.Article.find({ _id: req.params.id })
+        db.Article.find({ _id: req.params.id })       
             .populate('note')
             .then(function (dbArticleNotes) {
-                console.log(dbArticleNotes)
+                // console.log(dbArticleNotes)
                 res.json(dbArticleNotes);
             }).catch((err) => console.log(err))
 

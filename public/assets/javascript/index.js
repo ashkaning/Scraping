@@ -69,11 +69,12 @@ $(document).ready(function () {
       method: "GET",
       url: "/articleNotes/" + getArticleid._id
     }).then((noteResponse) => {
-      console.log(noteResponse)
+       console.log(noteResponse[0])
       $(".popupNote").show()
       $(".articleId").text(noteResponse[0]._id)
-
-      $(".preNotes").append("<p class='oldNotes'>" + noteResponse[0].note.body + "<span data-id='" + noteResponse[0].note._id + "' class='removeChildNotes'>X</span>")
+      for(let i in noteResponse[0].note){
+      $(".preNotes").append("<p class='oldNotes'>" + noteResponse[0].note[i].body + "<span data-id='" + noteResponse[0].note[i]._id + "' class='removeChildNotes'>X</span>")
+      }
     })
   })
 
@@ -84,7 +85,7 @@ $(document).ready(function () {
       method: "DELETE",
       url: "/deleteonenote/" + noteIdDelete
     }).then(function (data) {
-
+      $(".popupNote").hide()
       console.log(data)
     }).catch(err => console.log(err))
   })
