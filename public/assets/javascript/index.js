@@ -5,7 +5,9 @@ $(document).ready(function () {
     $.ajax("/api/fetch", {
       type: "GET"
     }).then(function (data) {
-      window.location.reload()
+      setTimeout(function () {
+        location.reload();  //Refresh page
+      }, 5000);
     })
       .catch(err => console.log(err));
   })
@@ -69,11 +71,11 @@ $(document).ready(function () {
       method: "GET",
       url: "/articleNotes/" + getArticleid._id
     }).then((noteResponse) => {
-       console.log(noteResponse[0])
+      console.log(noteResponse[0])
       $(".popupNote").show()
       $(".articleId").text(noteResponse[0]._id)
-      for(let i in noteResponse[0].note){
-      $(".preNotes").append("<p class='oldNotes'>" + noteResponse[0].note[i].body + "<span data-id='" + noteResponse[0].note[i]._id + "' class='removeChildNotes'>X</span>")
+      for (let i in noteResponse[0].note) {
+        $(".preNotes").append("<p class='oldNotes'>" + noteResponse[0].note[i].body + "<span data-id='" + noteResponse[0].note[i]._id + "' class='removeChildNotes'>X</span>")
       }
     })
   })
