@@ -51,13 +51,18 @@ app.get("/api/fetch", (request, response) => {
         .then(foundArticle => {
           if (!foundArticle.length) {
             db.Article.create(article)
-              .catch(error => console.log(error));
           }
+          else {
+            console.log("the post is existed");
+          }
+         
         })
         .catch(error => console.log(error));
     });
     console.log("Scrape complete.");
-  })
+   
+  }) 
+  response.render('index')
 })
 app.put("/api/headlines/:id", function (req, res) {
   //console.log("---------"+req.body.id)
@@ -98,6 +103,19 @@ app.delete("/delete/:id", (req, res) => {
       res.sendStatus(500);
     });
 })
+
+app.delete("/deleteonenote/:id", (req, res) => {
+  db.Note.deleteOne({ _id: req.params.id })
+    .then(deletedNote => {
+      res.send("Note deleted.");
+      res.sendStatus(200);
+      console.log("=======================" + deletedNote)
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+})
 app.delete("/deleteall", (req, res) => {
   db.Article.remove({})
     .then(deletedAll => {
@@ -128,16 +146,14 @@ app.post("/addnote/:id", function (req, res) {
 
 app.get("/articleNotes/:id", (req, res) => {
   db.Article.find({ _id: req.params.id })
-  .populate({
-    path:'note'
-})
+    .populate('note')
     .then(function (dbArticleNotes) {
       console.log(dbArticleNotes)
       res.json(dbArticleNotes);
     }).catch((err) => console.log(err))
 
-  })
-  // Start the server
-  app.listen(PORT, function () {
-    console.log("App running on port " + PORT + "!");
-  });
+})
+// Start the server
+app.listen(PORT, function () {
+  console.log("App running on port " + PORT + "!");
+});
