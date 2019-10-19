@@ -181,3 +181,19 @@ textarea {
 .margin-auto-custome{
   margin: 0 auto;
 }
+.preNotes{
+  background-color: white;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.preNotes p{
+  border: 1px solid red;
+  padding: 5px;
+  border-radius: 5px;
+}
+.removeChildNotes{
+  float: right;
+  color:red;
+  font-weight: bolder;
+  font-size: 18px;
+}

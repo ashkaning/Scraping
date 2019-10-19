@@ -61,11 +61,23 @@ $(document).ready(function () {
   })
 
   $(".notes").on("click", function () {
+    $(".articleId").text("")
+    $(".preNotes").empty()
+    $(".noteText").text("")
     var noteToAdd = $(this)
       .parents(".card")
       .data();
-    $(".articleId").text(noteToAdd._id)
-    $(".popupNote").show()
+      $.ajax({
+        method: "GET",
+        url: "/articleNotes/" + noteToAdd._id
+      }).then((noteResponse)=>{
+        console.log(noteResponse)
+        $(".popupNote").show()
+        $(".articleId").text(noteResponse._id)
+       // $(".preNotes").append("<p class='oldNotes'>"+noteResponse.note.body+"<span data-id='"+noteResponse.note._id+"' class='removeChildNotes'>X</span>")
+        
+      })
+   
   })
 
   $(".saveNote").on("click", function (evt) {
@@ -79,6 +91,7 @@ $(document).ready(function () {
       data: {body}
     }).then(function (data) {
       console.log(data)
+      
       $(".popupNote").hide()
     }).catch(err => console.log(err))
 

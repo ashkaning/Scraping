@@ -113,7 +113,7 @@ app.delete("/deleteall", (req, res) => {
 app.post("/addnote/:id", function (req, res) {
   db.Note.create(req.body)
     .then(function (dbNote) {
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { note: dbNote._id} }, { new: true })
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { note: dbNote._id } }, { new: true })
     })
     .then(function (dbArticle) {
       console.log(dbArticle)
@@ -124,7 +124,20 @@ app.post("/addnote/:id", function (req, res) {
       res.json(err);
     });
 })
-// Start the server
-app.listen(PORT, function () {
-  console.log("App running on port " + PORT + "!");
-});
+
+
+app.get("/articleNotes/:id", (req, res) => {
+  db.Article.find({ _id: req.params.id })
+  .populate({
+    path:'note'
+})
+    .then(function (dbArticleNotes) {
+      console.log(dbArticleNotes)
+      res.json(dbArticleNotes);
+    }).catch((err) => console.log(err))
+
+  })
+  // Start the server
+  app.listen(PORT, function () {
+    console.log("App running on port " + PORT + "!");
+  });
